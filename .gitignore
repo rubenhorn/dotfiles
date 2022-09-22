@@ -1,0 +1,11 @@
+*
+
+!.gitignore
+!.vimrc
+
+# TODO this is a bit convoluted lol (but I don't want to track all my configs
+!.config
+.config/*
+!.config/qtile
+.config/qtile/*
+!.config/qtile/config.py

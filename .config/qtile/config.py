@@ -31,6 +31,7 @@ from libqtile.utils import guess_terminal
 
 mod = "mod4" # Meta key
 terminal = "kitty" # guess_terminal()
+gap_size = 4
 
 keys = [
     # A list of available commands that can be bound to keys can be found
@@ -41,8 +42,6 @@ keys = [
     Key([mod], "j", lazy.layout.down(), desc="Move focus down"),
     Key([mod], "k", lazy.layout.up(), desc="Move focus up"),
     Key([mod], "space", lazy.layout.next(), desc="Move window focus to other window"),
-    # TODO why does rotating the main window not work :(
-    Key([mod, "shift"], "space", lazy.layout.rotate(), desc="Switch main window"),
     # Move windows between left/right columns or move up/down in current stack.
     # Moving out of range in Columns layout will create new column.
     Key([mod, "shift"], "h", lazy.layout.shuffle_left(), desc="Move window to the left"),
@@ -105,12 +104,12 @@ for i in groups:
 
 layouts = [
     # layout.Columns(border_focus_stack=["#d75f5f", "#8f3d3d"], border_width=4),
-    # layout.Max(),
+    layout.Columns(border_width=gap_size, margin=gap_size),
     # Try more layouts by unleashing below layouts.
     # layout.Stack(num_stacks=2),
     # layout.Bsp(),
     # layout.Matrix(),
-    layout.MonadTall(margin=8),
+    # layout.MonadTall(margin=8),
     # layout.MonadWide(),
     # layout.RatioTile(),
     # layout.Tile(),
@@ -128,9 +127,9 @@ extension_defaults = widget_defaults.copy()
 
 screens = [
     Screen(
-        bottom=bar.Bar(
+        top=bar.Bar(
             [
-                widget.CurrentLayout(),
+                # widget.CurrentLayout(),
                 widget.GroupBox(),
                 widget.Prompt(),
                 widget.WindowName(),
@@ -146,9 +145,13 @@ screens = [
                 widget.QuickExit(),
             ],
             24,
+            margin=[0, 0, gap_size, 0],
             # border_width=[2, 0, 2, 0],  # Draw top and bottom borders
-            # border_color=["ff00ff", "000000", "ff00ff", "000000"]  # Borders are magenta
+            # border_color=["ff00ff", "000000", "ff00ff", "000000"]  # Borders are magenta 
         ),
+        bottom=bar.Gap(gap_size),
+        left=bar.Gap(gap_size),
+        right=bar.Gap(gap_size),
     ),
 ]
 

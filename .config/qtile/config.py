@@ -33,6 +33,12 @@ mod = "mod4" # Meta key
 terminal = "kitty" # guess_terminal()
 gap_size = 4
 
+def current_window_toggle_floating(qtile):
+    qtile.current_window.toggle_floating()
+    for window in qtile.current_group.windows:
+        if window.floating:
+            window.cmd_bring_to_front()
+
 keys = [
     # A list of available commands that can be bound to keys can be found
     # at https://docs.qtile.org/en/latest/manual/config/lazy.html
@@ -72,8 +78,7 @@ keys = [
     Key([mod, "control"], "r", lazy.reload_config(), desc="Reload the config"),
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
     Key([mod], "r", lazy.spawncmd(), desc="Spawn a command using a prompt widget"),
-    # TODO set up toggle floating such that floating windows always stay on top
-    Key([mod], "f", lazy.window.toggle_floating(), desc="Toggle floating"),
+    Key([mod], "f", lazy.function(current_window_toggle_floating), desc="Toggle floating"),
 ]
 
 groups = [Group(i) for i in "123456789"]

@@ -136,7 +136,17 @@ def sh(cmd):
 
 def widget_net_stat():
     cmd = "nmcli | grep \"\\bconnected\" || echo disconnected | head -n 1"
-    return widget.GenPollText(update_interval=1, func=lambda: sh(cmd))
+    return widget.GenPollText(update_interval=5, func=lambda: sh(cmd))
+
+def widget_brightness():
+    device = sh("brightnessctl | head -n 1 | awk '{print $2}'")
+    cmd_brightness_change = lambda sign: sh(f"brightnessctl -d {device} set 5%{sign}")
+    mouse_callbacks = {
+        "Button4": lambda: cmd_brightness_change('+'),
+        "Button5": lambda: cmd_brightness_change('-')
+    }
+    cmd_get_brightness = f"brightnessctl -d {device} | grep Current | grep -oP '\d+%' | head -n 1"
+    return widget.GenPollText(update_interval=0.2, func=lambda: "Brightness: " + sh(cmd_get_brightness), mouse_callbacks=mouse_callbacks)
 
 screens = [
     Screen(
@@ -157,10 +167,14 @@ screens = [
                 widget.Sep(),
                 widget_net_stat(),
                 widget.Sep(),
-                widget.TextBox('Battery: '),
-                widget.Battery(),
+                widget_brightness(),
+                widget.Sep(),
+                widget.Volume(fmt='Vol: {}'),
+                widget.Sep(),
+                widget.Battery(format='Battery: {percent:2.0%} ({char})'),
                 widget.Sep(),
                 widget.Clock(format="%Y-%m-%d %a %I:%M %p"),
+                widget.Sep(),
                 widget.QuickExit(),
             ],
             24,

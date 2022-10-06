@@ -28,6 +28,7 @@ from libqtile import bar, layout, widget
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
+import subprocess
 
 mod = "mod4" # Meta key
 terminal = "kitty" # guess_terminal()
@@ -130,12 +131,19 @@ widget_defaults = dict(
 )
 extension_defaults = widget_defaults.copy()
 
+def sh(cmd):
+    return subprocess.check_output(cmd, shell=True).decode("utf-8").strip()
+
+def widget_net_stat():
+    cmd = "nmcli | grep \"\\bconnected\" || echo disconnected | head -n 1"
+    return widget.GenPollText(update_interval=1, func=lambda: sh(cmd))
+
 screens = [
     Screen(
         top=bar.Bar(
             [
-                # widget.CurrentLayout(),
                 widget.GroupBox(),
+                widget.Sep(),
                 widget.Prompt(),
                 widget.WindowName(),
                 widget.Chord(
@@ -146,6 +154,12 @@ screens = [
                 ),
                 widget.TextBox("Press &lt;M-r&gt; to spawn", foreground="#d75f5f"),
                 widget.Systray(),
+                widget.Sep(),
+                widget_net_stat(),
+                widget.Sep(),
+                widget.TextBox('Battery: '),
+                widget.Battery(),
+                widget.Sep(),
                 widget.Clock(format="%Y-%m-%d %a %I:%M %p"),
                 widget.QuickExit(),
             ],

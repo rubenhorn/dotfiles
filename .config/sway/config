@@ -54,6 +54,7 @@ output * bg /usr/share/backgrounds/default.png fill
 input "type:keyboard" {
    xkb_layout de
    xkb_variant ,nodeadkeys
+   xkb_options caps:escape
 }
 
 ### Key bindings

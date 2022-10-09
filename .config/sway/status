@@ -1,5 +1,25 @@
 #! /bin/bash
 
+playback_info() {
+   if [ -z $(which playerctl) ]
+   then
+      echo "(playerctl not installed)"
+   else
+      title=$(playerctl metadata | grep -o :title.* | awk '{s=""; for (i=2; i<=NF; i++) s=s$i" "; print s}')
+      if [ ! -z "$title" ]
+      then
+         title_ellipsis=$(echo $title | cut -c 1-40)
+         if [ $(echo $title_ellipsis | wc -c) -lt $(echo $title | wc -c) ]
+         then
+            title_ellipsis="$title_ellipsis..."
+         fi
+         echo "$(playerctl status) $title_ellipsis"
+      else
+         echo "(No media player)"
+      fi
+   fi
+}
+
 storage_info() {
    echo "$((100-$(df / | grep -oE [0-9]+% | head -n 1 | grep -o [0-9]*)))%"
 }
@@ -28,7 +48,13 @@ volume() {
    then
       echo "n/a (amixer not installed)"
    else
-      amixer -M get Master | grep -o [0-9]*% | head -n 1
+      current_volume=$(amixer -M get Master | tail -n 1 | grep -o [0-9]*%)
+      if [ -z $(amixer -M get Master | tail -n 1 | grep off) ]
+      then
+         echo $current_volume
+      else
+         echo "$current_volume (muted)"
+      fi
    fi
 }
 
@@ -51,5 +77,5 @@ date_time() {
    date +"%Y-%m-%d %I:%M:%S %p"
 }
 
-echo "Storage: $(storage_info) | Network: $(network_info) | Brightness: $(brightness) | Volume: $(volume) | Battery: $(battery_info) | $(date_time) "
+echo "$(playback_info) | Storage: $(storage_info) | Network: $(network_info) | Brightness: $(brightness) | Volume: $(volume) | Battery: $(battery_info) | $(date_time) "
 

@@ -10,3 +10,8 @@
 !.config/qtile
 .config/qtile/*
 !.config/qtile/config.py
+
+!.config/sway
+.config/sway/*
+!.config/sway/config
+

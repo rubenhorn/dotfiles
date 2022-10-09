@@ -1,43 +1,55 @@
 #! /bin/bash
 
-storage_info="$((100-$(df / | grep -oE [0-9]+% | head -n 1 | grep -o [0-9]*)))%"
+storage_info() {
+   echo "$((100-$(df / | grep -oE [0-9]+% | head -n 1 | grep -o [0-9]*)))%"
+}
 
-if [ -z $(which nmcli) ]
-then
-   network_info="n/a (nmcli not installed)"
-else
-   network_info=$(nmcli | grep \\bconnected || echo disconnected | head -n 1)
-fi
+network_info() {
+   if [ -z $(which nmcli) ]
+   then
+      echo "n/a (nmcli not installed)"
+   else
+      nmcli | grep \\bconnected || echo disconnected | head -n 1
+   fi
+}
 
+brightness() {
 if [ -z $(which brightnessctl) ]
 then
-   brightness="n/a (brightnessctl not installed)"
+   echo "n/a (brightnessctl not installed)"
 else
-   brightness_device=$(brightnessctl | head -n 1 | awk '{print $2}' | grep -o "[^\']*")
-   brightness=$(brightnessctl -d $brightness_device | grep Current | grep -oP \\d+% | head -n 1)
+   device=$(brightnessctl | head -n 1 | awk '{print $2}' | grep -o "[^\']*")
+   brightnessctl -d $device | grep Current | grep -oP \\d+% | head -n 1
 fi
+}
 
-if [ -z $(which amixer) ]
-then
-   volume="n/a (amixer not installed)"
-else
-   volume=$(amixer -M get Master | grep -o [0-9]*% | head -n 1)
-fi
+volume() {
+   if [ -z $(which amixer) ]
+   then
+      echo "n/a (amixer not installed)"
+   else
+      amixer -M get Master | grep -o [0-9]*% | head -n 1
+   fi
+}
 
-power_supply_dir=/sys/class/power_supply
-if [ -z "$(ls $power_supply_dir | grep -i bat)" ]
-then
-   battery_info="n/a"
-else
-   battery_dir=/sys/class/power_supply/BAT0
-   charge_full=$(cat $battery_dir/charge_full)
-   charge_now=$(cat $battery_dir/charge_now)
-   let "battery_percent=100*$charge_now/$charge_full"
-   battery_status=$(cat $battery_dir/status)
-   battery_info="$battery_percent% ($battery_status)"
-fi
+battery_info() {
+   power_supply_dir=/sys/class/power_supply
+   if [ -z "$(ls $power_supply_dir | grep -i bat)" ]
+   then
+      echo n/a
+   else
+      battery_dir=/sys/class/power_supply/BAT0
+      charge_full=$(cat $battery_dir/charge_full)
+      charge_now=$(cat $battery_dir/charge_now)
+      let "battery_percent=100*$charge_now/$charge_full"
+      battery_status=$(cat $battery_dir/status)
+      echo "$battery_percent% ($battery_status)"
+   fi
+}
 
-date_time=$(date +"%Y-%m-%d %I:%M:%S %p")
+date_time() {
+   date +"%Y-%m-%d %I:%M:%S %p"
+}
 
-echo "Storage: $storage_info | Network: $network_info | Brightness: $brightness | Volume: $volume | Battery: $battery_info | $date_time "
+echo "Storage: $(storage_info) | Network: $(network_info) | Brightness: $(brightness) | Volume: $(volume) | Battery: $(battery_info) | $(date_time) "
 

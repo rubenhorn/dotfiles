@@ -1,0 +1,21 @@
+#! /bin/bash
+
+network_info=$(nmcli | grep \\bconnected || echo disconnected | head -n 1)
+
+power_supply_dir=/sys/class/power_supply
+if [ ! -z "$(ls $power_supply_dir | grep -i bat)" ]
+then
+   battery_dir=/sys/class/power_supply/BAT0
+   charge_full=$(cat $battery_dir/charge_full)
+   charge_now=$(cat $battery_dir/charge_now)
+   let "battery_percent=100*$charge_now/$charge_full"
+   battery_status=$(cat $battery_dir/status)
+   battery_info="$battery_percent% ($battery_status)"
+else
+   battery_info='wall power'
+fi
+
+date_time=$(date +'%Y-%m-%d %I:%M:%S %p')
+
+echo "$network_info | $battery_info | $date_time"
+

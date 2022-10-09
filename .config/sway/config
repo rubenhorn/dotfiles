@@ -194,11 +194,15 @@ mode "resize" {
 }
 bindsym $mod+r mode "resize"
 
+#
 # Styling:
+#
 default_border pixel 4
 gaps inner 8
 
+#
 # Function keys
+#
 bindsym --locked XF86MonBrightnessUp exec brightnessctl set 5%+
 bindsym --locked XF86MonBrightnessDown exec brightnessctl set 5%-
 bindsym --locked XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
@@ -225,5 +229,10 @@ bar {
         inactive_workspace #32323200 #32323200 #5c5c5c
     }
 }
+
+#
+# Notifications:
+#
+exec_always --no-startup-id dunst
 
 include /etc/sway/config.d/*

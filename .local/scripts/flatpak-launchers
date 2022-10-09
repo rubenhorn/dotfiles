@@ -1,0 +1,77 @@
+#! /bin/bash
+
+rc_file=~/.bashrc
+scripts_dir=\$HOME/.local/scripts/flatpak-launchers.d
+
+eval "mkdir -p $scripts_dir && cd $scripts_dir"
+
+update_launchers() {
+   echo "Created launcher scripts:"
+   IFS=$'\n'
+   for row in $(flatpak list | grep stable | awk -F "\t" '{print $1 "\t" $2}' | uniq)
+   do
+      app_id=$(echo $row | awk -F "\t" '{print $2}')
+      name=$(echo $row | awk -F "\t" '{print $1}')
+      script=$(echo $name | tr " " - | tr '[:upper:]' '[:lower:]')
+      ls $script &> /dev/null
+      if [ $? -eq 0 ]
+      then
+         continue # Skip if exists
+      fi
+      echo -e " - $(pwd)/$script -> $app_id"
+      cat << EOF > $script
+#! /bin/bash
+
+if [ \$# -gt 0 ] && [ \$# -ne 1 -o "\$1" != "autoremove" ]
+then
+   echo "Usage: \$(basename \$0) [autoremove]"
+   exit 1
+fi
+
+if [ -z "\$(flatpak list | grep "\s$(echo $app_id | sed 's/\./\\./g')\s")" ]
+then
+   rm \$0
+   notification_title="$name is not installed!"
+   notification_body="Launcher script for $app_id was removed."
+   echo -e "\$notification_title\\n\$notification_body"
+   if [ "\$1" != "autoremove" ]
+   then
+      notify-send -u CRITICAL "\$notification_title" "\$notification_body"
+   fi
+elif [ "\$1" != "autoremove" ]
+then
+   exec flatpak run $app_id
+fi
+EOF
+      chmod +x $script
+   done
+   grep "^export PATH=\$PATH:$(echo $scripts_dir | sed 's/\./\\./g')" $rc_file > /dev/null
+   if [ $? -ne 0 ]
+   then
+      echo -e "export PATH=\$PATH:$scripts_dir\n" >> $rc_file
+      echo "$rc_file was updated."
+      exec /bin/bash
+   fi
+}
+
+auto_remove() {
+   echo Removed:
+   for file in $(ls)
+   do
+      if [ ! -z "$(./$file autoremove)" ]
+      then
+         echo " - $(pwd)/$file"
+      fi
+   done
+}
+
+if [ $# -eq 0 ] || [ $# -eq 1 -a  "$1" == "update" ]
+then
+   update_launchers
+elif [ $# -eq 1 -a "$1" == "autoremove" ]
+then
+   auto_remove
+else
+   echo "Usage: $(basename $0) [update|autoremove]"
+fi
+

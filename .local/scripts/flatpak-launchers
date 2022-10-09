@@ -1,6 +1,6 @@
 #! /bin/bash
 
-rc_file=~/.bashrc
+rcfile=~/.bashrc
 scripts_dir=\$HOME/.local/scripts/flatpak-launchers.d
 
 eval "mkdir -p $scripts_dir && cd $scripts_dir"
@@ -45,12 +45,11 @@ fi
 EOF
       chmod +x $script
    done
-   grep "^export PATH=\$PATH:$(echo $scripts_dir | sed 's/\./\\./g')" $rc_file > /dev/null
+   grep "^export PATH=\$PATH:$(echo $scripts_dir | sed 's/\./\\./g')" $rcfile > /dev/null
    if [ $? -ne 0 ]
    then
-      echo -e "export PATH=\$PATH:$scripts_dir\n" >> $rc_file
-      echo "$rc_file was updated."
-      exec /bin/bash
+      echo -e "export PATH=\$PATH:$scripts_dir\n" >> $rcfile
+      echo "$rcfile was updated."
    fi
 }
 

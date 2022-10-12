@@ -9,6 +9,7 @@
 !.config
 .config/*
 !.config/kitty
+!.config/mako
 !.config/qtile
 !.config/ranger
 !.config/sway

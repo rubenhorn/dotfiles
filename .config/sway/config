@@ -8,7 +8,7 @@ set $down j
 set $up k
 set $right l
 # Your preferred terminal emulator
-set $term foot
+set $term kitty
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
@@ -214,6 +214,8 @@ bindsym --locked XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ 
 bindsym --locked XF86AudioPrev exec playerctl previous
 bindsym --locked XF86AudioPlay exec playerctl play-pause
 bindsym --locked XF86AudioNext exec playerctl next
+bindsym --locked Print exec grim - | wl-copy
+bindsym --locked Shift+Print exec slurp | grim -g - - | wl-copy
 
 #
 # Status Bar:
@@ -245,3 +247,4 @@ exec_always --no-startup-id dunst
 exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
 
 include /etc/sway/config.d/*
+

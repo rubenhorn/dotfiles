@@ -12,12 +12,25 @@ set $term kitty
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
-set $menu bemenu-run -iwfp run: -H 16 --fn "JetBrainsMono 16px" --hb \#ffffff --hf \#000000 | xargs swaymsg exec --
+set $menu bemenu-run -niwfp run:\
+ --fn "JetBrainsMono 16px"\
+ --tb '#6272a4'\
+ --tf '#f8f8f2'\
+ --fb '#282a36'\
+ --ff '#f8f8f2'\
+ --nb '#282a36'\
+ --nf '#6272a4'\
+ --hb '#44475a'\
+ --hf '#50fa7b'\
+ --sb '#44475a'\
+ --sf '#50fa7b'\
+ --scb '#282a36'\
+ --scf '#ff79c6' | xargs swaymsg exec --
 
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-output * bg /usr/share/backgrounds/default.png fill
+output * bg $HOME/.config/wallpaper/dracula-wallpaper.svg fill
 #
 # Example configuration:
 #
@@ -239,7 +252,7 @@ bar {
 #
 # Notifications:
 #
-exec_always --no-startup-id dunst
+exec_always --no-startup-id mako
 
 #
 # Support for screen sharing:

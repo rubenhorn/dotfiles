@@ -1,26 +1,19 @@
 *
 
 !.gitignore
-!.vimrc
 !.bashrc
 !.bash_aliases
+!.vimrc
+!.Xresources
 
-# TODO this is a bit convoluted lol (but I don't want to track all my configs
 !.config
 .config/*
+!.config/kitty2
 !.config/qtile
-.config/qtile/*
-!.config/qtile/config.py
-
+!.config/ranger
 !.config/sway
-.config/sway/*
-!.config/sway/config
-!.config/sway/status
-
 !.config/waybar
-.config/waybar/*
-!.config/waybar/config
-!.config/waybar/style.css
+!.config/wallpaper
 
 !.local
 .local/*

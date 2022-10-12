@@ -2,14 +2,14 @@ set number
 set tabstop=3
 set shiftwidth=3
 set expandtab
-syntax on
 set encoding=utf-8
 
 " vim-plug plugins (activate using :PlugInstall)
 call plug#begin()
-  Plug 'preservim/nerdtree'
-  "Run .vim/plugged/youcompleteme/install.py after installing plugin
-  Plug 'valloric/youcompleteme'
+   Plug 'dracula/vim', { 'as': 'dracula' }
+   Plug 'preservim/nerdtree'
+   "Run .vim/plugged/youcompleteme/install.py after installing plugin
+   Plug 'valloric/youcompleteme'
 call plug#end()
 
 " Open file browser with Ctrl+N

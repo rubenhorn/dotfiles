@@ -64,14 +64,17 @@ window#waybar {
 #disk {
 	color: #b58900;
 }
+#network {
+   color: #ab4b02;
+}
 
 #clock,
 #pulseaudio,
 #memory,
 #cpu,
 #battery,
-#network,
 #disk,
+#network,
 #tray {
 	padding: 0 10px;
 }

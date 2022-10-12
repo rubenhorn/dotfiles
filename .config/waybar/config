@@ -62,7 +62,7 @@
 		"tooltip": false
    },
 	"sway/workspaces": {
-		"disable-scroll": true,
+      "disable-scroll": true,
 		"format": "{name}"
 	},
 
@@ -80,16 +80,8 @@
 	},
 
 	"pulseaudio": {
-		"format": "{icon} {volume:2}%",
-		"format-bluetooth": "{icon}  {volume}%",
+		"format": "Vol {volume:2}%",
 		"format-muted": "MUTE",
-		"format-icons": {
-			"headphones": "",
-			"default": [
-				"",
-				""
-			]
-		},
 		"scroll-step": 5,
 		"on-click": "pamixer -t",
 		"on-click-right": "pavucontrol"
@@ -117,12 +109,11 @@
 	},
    "network": {
       "interval": 5,
-      "format-wifi": "{essid}",
-      "format-ethernet": "LAN",
-      "format-disconnected": "disconnected",
+      "format-wifi": "Net Wi-Fi",
+      "format-ethernet": "Net Eth",
+      "format-disconnected": "Net n/a",
       "tooltip-format-wifi": "{essid} ({frequency} GHz, {signaldBm} dBm): {ipaddr}/{cidr}",
       "tooltip-format-ethernet": "{ifname}: {ipaddr}/{cidr}",
-      "max-length": 8
    },
 	"tray": {
 		"icon-size": 20

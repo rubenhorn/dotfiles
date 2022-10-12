@@ -9,6 +9,14 @@ window#waybar {
 	color: #f8f8f2;
 }
 
+tooltip {
+   background-color: #44475a;
+   border-color: #f8f8f2;
+   border-radius: 0;
+   border-width: 2px;
+   color: #f8f8f2;
+}
+
 #custom-right-arrow-dark,
 #custom-left-arrow-dark {
 	color: #44475a;

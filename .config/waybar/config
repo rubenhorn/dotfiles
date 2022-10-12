@@ -112,7 +112,7 @@
       "format-wifi": "Net Wi-Fi",
       "format-ethernet": "Net Eth",
       "format-disconnected": "Net n/a",
-      "tooltip-format-wifi": "{essid} ({frequency} GHz, {signaldBm} dBm): {ipaddr}/{cidr}",
+      "tooltip-format-wifi": "{essid} ({frequency}GHz, {signaldBm}dBm): {ipaddr}/{cidr}",
       "tooltip-format-ethernet": "{ifname}: {ipaddr}/{cidr}",
    },
 	"tray": {

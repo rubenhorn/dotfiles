@@ -8,7 +8,7 @@
 
 !.config
 .config/*
-!.config/kitty2
+!.config/kitty
 !.config/qtile
 !.config/ranger
 !.config/sway

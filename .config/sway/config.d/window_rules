@@ -1,0 +1,3 @@
+for_window [title="guiscrcpy"] floating enable
+for_window [class="scrcpy"] floating enable
+

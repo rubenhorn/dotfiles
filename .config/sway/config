@@ -215,6 +215,12 @@ bindsym $mod+r mode "resize"
 #
 default_border pixel 4
 gaps inner 8
+set $bg #282a36
+set $fg #f8f8f2
+set $br #50fa7b
+client.focused $br $br $fg $bg $br
+client.focused_inactive $bg $bg $fg $bg $bg
+client.unfocused $bg $bg $fg $bg $bg
 
 #
 # Function keys
@@ -240,8 +246,8 @@ bar {
     # When the status_command prints a new line to stdout, swaybar updates.
     # The default just shows the current date and time.
     # status_command while ~/.config/sway/status; do sleep 0.2; done
-    swaybar_command waybar      
-   
+    swaybar_command waybar
+
     colors {
         statusline #ffffff
         background #323232

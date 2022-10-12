@@ -1,3 +1,8 @@
 for_window [title="guiscrcpy"] floating enable
 for_window [class="scrcpy"] floating enable
 
+# YOU'LL FLOAT TOO
+for_window [app_id=".*"] floating enable
+for_window [app_id="kitty"] floating disable
+for_window [app_id="firefox"] floating disable
+

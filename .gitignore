@@ -17,6 +17,11 @@
 !.config/sway/config
 !.config/sway/status
 
+!.config/waybar
+.config/waybar/*
+!.config/waybar/config
+!.config/waybar/style.css
+
 !.local
 .local/*
 !.local/scripts

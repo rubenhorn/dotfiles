@@ -4,6 +4,7 @@
 	"position": "top",
 
 	"modules-left": [
+		"sway/mode",
 		"sway/workspaces",
 		"custom/right-arrow-dark"
 	],

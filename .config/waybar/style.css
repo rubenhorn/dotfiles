@@ -27,6 +27,10 @@ tooltip {
 	background: #44475a;
 }
 
+#mode {
+   background: #ff5555;
+}
+
 #workspaces,
 #clock.1,
 #clock.2,
@@ -77,6 +81,7 @@ tooltip {
    color: #ff5555;
 }
 
+#mode,
 #clock,
 #pulseaudio,
 #memory,

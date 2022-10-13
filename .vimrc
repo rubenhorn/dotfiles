@@ -1,4 +1,6 @@
 set number
+syntax on
+set foldmethod=syntax
 set tabstop=3
 set shiftwidth=3
 set expandtab
@@ -28,3 +30,5 @@ nnoremap <F12> <cmd>execute 'YcmCompleter GoTo'<CR>
 " Manual documentation
 let g:ycm_auto_hover = ''
 nnoremap <F1> <cmd>execute 'YcmCompleter GetDoc'<CR> 
+" Toggle folding
+nnoremap <Tab> za

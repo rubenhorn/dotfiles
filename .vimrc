@@ -10,7 +10,7 @@ set encoding=utf-8
 call plug#begin()
    Plug 'dracula/vim', { 'as': 'dracula' }
    Plug 'preservim/nerdtree'
-   "Run .vim/plugged/youcompleteme/install.py after installing plugin
+   "Run ~/.vim/plugged/youcompleteme/install.py after installing plugin
    Plug 'valloric/youcompleteme'
 call plug#end()
 
@@ -27,8 +27,9 @@ let g:ycm_autoclose_preview_window_after_completion = 1
 nnoremap <F2> <cmd>execute 'YcmCompleter RefactorRename' input('Rename to: ')<CR>
 " Go To
 nnoremap <F12> <cmd>execute 'YcmCompleter GoTo'<CR>
-" Manual documentation
+" Manually open documentation
 let g:ycm_auto_hover = ''
 nnoremap <F1> <cmd>execute 'YcmCompleter GetDoc'<CR> 
 " Toggle folding
 nnoremap <Tab> za
+

@@ -109,6 +109,8 @@ input "type:keyboard" {
     bindsym $mod+Up focus up
     bindsym $mod+Right focus right
 
+    bindsym $mod+Shift+Tab exec $HOME/.config/sway/script next
+
     # Move the focused window with the same, but add Shift
     bindsym $mod+Shift+$left move left
     bindsym $mod+Shift+$down move down
@@ -149,30 +151,32 @@ input "type:keyboard" {
 #
 # Layout stuff:
 #
+    workspace_layout default
     # You can "split" the current object of your focus with
     # $mod+b or $mod+v, for horizontal and vertical splits
     # respectively.
-    bindsym $mod+b splith
-    bindsym $mod+v splitv
+    # bindsym $mod+b splith
+    # bindsym $mod+v splitv
 
     # Switch the current container between different layout styles
     # bindsym $mod+s layout stacking
     # bindsym $mod+w layout tabbed
-    # bindsym $mod+e layout toggle split
+    bindsym $mod+e layout toggle split
     # Make the current focus fullscreen
-    # bindsym $mod+f fullscreen
+    bindsym $mod+f fullscreen
 
     # Toggle the current focus between tiling and floating mode
     bindsym $mod+Shift+space floating toggle
 
     # Swap focus between the tiling area and the floating area
-    bindsym $mod+space focus mode_toggle
+    # bindsym $mod+space focus mode_toggle
+    bindsym $mod+space focus next
 
     # Move focus to the parent container
     bindsym $mod+a focus parent
 
     # Autotiling (github.com/nwg-piotr/autotiling)
-    exec_always --no-startup-id autotiling
+    # exec_always --no-startup-id autotiling
 #
 # Scratchpad:
 #
@@ -218,9 +222,10 @@ gaps inner 8
 set $bg #282a36
 set $fg #f8f8f2
 set $br #50fa7b
-client.focused $br $br $fg $bg $br
-client.focused_inactive $bg $bg $fg $bg $bg
-client.unfocused $bg $bg $fg $bg $bg
+# Property Name         Border   BG    Text  Indicator   Child Border
+client.focused          $br      $br   $fg   $br         $br
+client.focused_inactive $bg      $bg   $fg   $bg         $bg
+client.unfocused        $bg      $bg   $fg   $bg         $bg
 
 #
 # Function keys

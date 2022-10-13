@@ -1,0 +1,27 @@
+#! /bin/bash
+
+# FIXME port to rust for better performance
+# TODO shift focus in previous direction
+# TODO autotiling logic
+
+if [ "$1" != "next" ]
+then
+   echo Operation \"$1\" is not yet implemented!
+   exit 1
+fi
+
+workspace=$(swaymsg -t get_workspaces | jq "map(.visible==true) | index(true)")
+nodes=$(swaymsg -t get_tree | jq ".nodes[1].nodes[$get_workspace].nodes[0] | .. | .nodes? | select( . != null) | flatten[] | select(.visible == true) | {id:.id, focused:.focused, fullscreen:.fullscreen_mode}" | jq -s)
+
+# Exit fullscreen
+if [ ! -z "$(echo $nodes | jq ".[] | select(.fullscreen == 1) | select(.focused == true)")" ]
+then
+   swaymsg fullscreen
+fi
+
+nodes_idx_focused=$(echo $nodes | jq "map(.focused == true) | index(true)")
+nodes_length=$(echo $nodes | jq "length")
+let "nodes_idx_focus=($nodes_idx_focused+1)%$nodes_length"
+con_id=$(echo $nodes | jq ".[$nodes_idx_focus].id")
+swaymsg "[con_id=$con_id]" focus
+

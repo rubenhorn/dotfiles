@@ -21,15 +21,16 @@ let NERDTreeShowHidden=1
 " Open terminal with Shift+T
 nnoremap <s-t> :terminal<CR>
 
+" Manually open documentation
+let g:ycm_auto_hover = ''
+nnoremap <F1> <cmd>execute 'YcmCompleter GetDoc'<CR>
 let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_autoclose_preview_window_after_completion = 1
 " Refactor
 nnoremap <F2> <cmd>execute 'YcmCompleter RefactorRename' input('Rename to: ')<CR>
 " Go To
 nnoremap <F12> <cmd>execute 'YcmCompleter GoTo'<CR>
-" Manually open documentation
-let g:ycm_auto_hover = ''
-nnoremap <F1> <cmd>execute 'YcmCompleter GetDoc'<CR> 
+
 " Toggle folding
 nnoremap <Tab> za
 

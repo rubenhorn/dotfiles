@@ -34,3 +34,6 @@ nnoremap <F12> <cmd>execute 'YcmCompleter GoTo'<CR>
 " Toggle folding
 nnoremap <Tab> za
 
+" Mouse support
+set mouse=a
+

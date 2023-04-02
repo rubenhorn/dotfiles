@@ -1,0 +1,55 @@
+position = "top"
+height = 42
+
+[[start]]
+type = "custom"
+
+[[start.bar]]
+on_click="!wofi -S drun"
+type = "button"
+label="wofi"
+
+[[start]]
+type = "launcher"
+favorites = ["firefox", "thunar", "kitty", "code"]
+show_names = false 
+show_icons = true
+
+[[end]]
+type = "music"
+player_type = "mpris"
+format = "{title} / {artist}"
+music_dir = "/home/jake/Music"
+truncate = "end"
+
+[[end]]
+type = 'sys_info'
+format = [
+    'CPU [{cpu_percent}%]',
+    'MEM [{memory_used}/{memory_total}GB {memory_percent}%]',
+    'SWP [{swap_used}/{swap_total}GB {swap_percent}%]',
+    'DSK [{disk_used:/}/{disk_total:/}GB {disk_percent:/}%]',
+]
+
+[end.interval]
+cpu = 1
+disks = 300
+memory = 30
+networks = 3
+temps = 5
+
+[[end]]
+type = "tray"
+
+[[end]]
+type = "clock"
+format = "%d/%m/%Y %H:%M"
+
+[[end]]
+type="custom"
+
+[[end.bar]]
+on_click="!wlogout"
+type = "button"
+label="Ciao!"
+

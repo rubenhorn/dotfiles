@@ -18,6 +18,8 @@ packages
 !.config/sway
 !.config/waybar
 !.config/wallpaper
+!.config/ironbar
+!.config/hypr
 
 !.local
 .local/*
